@@ -1,29 +1,21 @@
 
 # coding: utf-8
 
-# In[1]:
-
-
-# Importing random package for later use
+import string
 import pprint
-import random
-from random import *
+from random import choice
 
 # Creating strings that will be used for password generation
-numbers = "0123456789"
-lowletters = "qwertyuiopasdfghjklzxcvbnm"
-capletters = lowletters.upper()
-symbols = "!@#$%^&*+=-,./?_"
-allchars = [numbers, lowletters, capletters, symbols]
-
-
-# In[2]:
+NUMBERS = string.digits
+LOWLETTERS = string.ascii_lowercase
+CAPLETTERS = string.ascii_uppercase
+SYMBOLS = "!@#$%^&*+=-,./?_"
+allchars = [NUMBERS, LOWLETTERS, CAPLETTERS, SYMBOLS]
 
 
 # Defining function for password length
-def passLength():
+def password_length():
 
-    pass_length = 8
     print("Choose password length.")
     print("Password length should be 8 to 32 elements")
 
@@ -42,12 +34,9 @@ def passLength():
             print("You entered invalid characters!")
 
 
-# In[3]:
-
-
 # defining function for creating pasword from previously defined strings
 
-def createPass(pass_length):
+def create_password(pass_length):
       
     password1 = ""
     i = 0
@@ -59,15 +48,13 @@ def createPass(pass_length):
     return password1
 
 
-# In[4]:
-
 
 # Checking password strength.
 # Pasword should include at least one number, one symbol, one upper case and one lower case letter.
 # if criteria are not met function calls createPass function for a new password.
 
-def testPass(pass_length):
-    password2 = createPass(pass_length)
+def test_password(pass_length):
+    password2 = create_password(pass_length)
         
     j = 0
     
@@ -78,13 +65,10 @@ def testPass(pass_length):
         s2 = set(string2)
         common_char = s1 & s2
         if len(common_char) == 0:
-            password2 = createPass(pass_length)
+            password2 = create_password(pass_length)
             j = -1
         j += 1
     return password2
-
-
-# In[5]:
 
 
 # Demo users
@@ -96,37 +80,31 @@ users = {'jim': ',3,-X#1%4m1Rt!P0xx^_',
  'tomas': '1234'}
 
 
-# In[6]:
-
-
 # Creating class user
 
-class user:
+class User:
     
     def __init__(self, username, pass_length):
         self.username = username
         self.pass_length = pass_length
-        self.password = testPass(pass_length)
+        self.password = test_password(pass_length)
         print ("Your login name is:", username)
         print ("Your password is: ", self.password)
         users.update({self.username : self.password})
 
 
-# In[7]:
-
-
 # defining logIn function that asks for user details, checks if a user already exists, and, if not, creates a new user.
 
-def logIn():
+def log_in():
     user_name = input("Enter your username:")
     if users.get(user_name) == None:
         if user_name == "":
             print("Your imput is empty.")
             return
         print('User "' + user_name + '" does not exist')
-        pass_length = passLength()
+        pass_length = password_length()
         print(pass_length)
-        new_user = user(user_name, pass_length)
+        new_user = User(user_name, pass_length)
     else:
         print("user already exists")
         i = 0
@@ -145,14 +123,11 @@ def logIn():
             print("Please try again.")
 
 
-# In[8]:
-
-
 # Operating part of code.
 
 while True:
-    logIn()
-    user_name = input('Enter username username or press ENTER to exit.')
+    log_in()
+    user_name = input('Press ANY BUTTON and ENTER to continue or press ENTER to exit.')
     if user_name == "":
         break
 
